@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:insurego_gfg/provider/auth_provider.dart';
+import 'package:insurego_gfg/provider/insurance_provider.dart';
 import 'package:insurego_gfg/provider/insurancetype_provider.dart';
 import 'package:insurego_gfg/provider/register_provider.dart';
-import 'package:insurego_gfg/provider/user_provider.dart';
 import 'package:insurego_gfg/screens/about_first.dart';
 import 'package:insurego_gfg/screens/main_class.dart';
 import 'package:insurego_gfg/screens/slider.dart';
@@ -31,7 +31,7 @@ class AuthCheck extends StatelessWidget {
           value: AuthProvider(),
         ),
         ChangeNotifierProvider.value(
-          value: RegisterProvider(),
+          value: RegisterProvider('',''),
         ),
 
         ChangeNotifierProxyProvider<AuthProvider, ITypeProvider>(
@@ -40,13 +40,19 @@ class AuthCheck extends StatelessWidget {
         ),
 
         ChangeNotifierProxyProvider<AuthProvider, RegisterProvider>(
-                  create: (ctx) => RegisterProvider(),
-                   update: (ctx,auth,_) => RegisterProvider(),
+                  create: (ctx) => RegisterProvider('',''),
+                   update: (ctx,auth,_) => RegisterProvider('',''),
                  ),
-        ChangeNotifierProxyProvider<AuthProvider, UserProvider>(
-          create: (ctx) => UserProvider('','','',''),
-          update: (ctx,auth,_) => UserProvider(auth.student_id,auth.institute_id,auth.course,''),
+        ChangeNotifierProxyProvider<AuthProvider, InsuranceProvider>(
+          create: (ctx) => InsuranceProvider(),
+          update: (ctx,auth,_) => InsuranceProvider(),
         ),
+
+        ChangeNotifierProxyProvider<AuthProvider, InsurancePolicyProvider>(
+          create: (ctx) => InsurancePolicyProvider(),
+          update: (ctx,auth,_) => InsurancePolicyProvider(),
+        ),
+
       ],
       child: Consumer<AuthProvider>(
         builder: (ctx, auth, _) => MaterialApp(

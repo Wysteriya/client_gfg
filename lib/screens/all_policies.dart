@@ -9,14 +9,14 @@ import 'package:insurego_gfg/models/insurance_model.dart';
 
 
 
-class Claim extends StatefulWidget {
-  const Claim({Key? key}) : super(key: key);
+class InsurancePolicyListScreen extends StatefulWidget {
+  const InsurancePolicyListScreen({Key? key}) : super(key: key);
 
   @override
-  State<Claim> createState() => _ClaimState();
+  State<InsurancePolicyListScreen> createState() => _InsurancePolicyListScreenState();
 }
 
-class _ClaimState extends State<Claim> with SingleTickerProviderStateMixin {
+class _InsurancePolicyListScreenState extends State<InsurancePolicyListScreen> with SingleTickerProviderStateMixin {
   var _isLoading = false;
 
 
@@ -27,7 +27,7 @@ class _ClaimState extends State<Claim> with SingleTickerProviderStateMixin {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_isInit) {
-      Provider.of<RegisterProvider>(context, listen: false).UserStatus(context);
+      Provider.of<InsurancePolicyProvider>(context, listen: false).fetchPolicies();
 
       setState(() {
         _isInit = false;
@@ -46,11 +46,11 @@ class _ClaimState extends State<Claim> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final insurancePolicyProvider = Provider.of<InsurancePolicyProvider>(context);
+    final policies = insurancePolicyProvider.policies;
     final reg = Provider.of<RegisterProvider>(context);
-setState(() {
-  reg.UserStatus(context);
 
-});
+
 
     return Container(decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -62,20 +62,23 @@ setState(() {
             child: SingleChildScrollView(
               child: Column(
 
-                  children: [
-                    SizedBox(height: 20,),
+                children: [
+                  Text("Select Policy",style: TextStyle(fontSize: 20),),
+                  SizedBox(height: 20,),
 
-                    reg.insurances.length==0?
-                    Text("No Policy"):
+                  policies.length==0?
+                Text("No Policy"):
 
-                    ListView.builder(
-                      shrinkWrap: true,
+                     ListView.builder(
+                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
-                      itemCount: reg.insurances.length,
+                      itemCount: policies.length,
                       itemBuilder: (context, index) {
 
+        final policy = policies[index];
                         return GestureDetector(onTap: (){
-
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>PolicyRegistration()));
+                          reg.updatepolicyid(insurancePolicyProvider.policies[index].policyName,context);
 
                         },
                           child: Container(
@@ -103,28 +106,28 @@ setState(() {
                                         //   overflow: TextOverflow.fade,
                                         // ),
                                         Text("Comapny - "+
-                                            reg.insurances[index].companyName,
+                                          policy.companyName,
                                           style: const TextStyle(fontSize: 14, color: Colors.grey),
                                         ),
                                         const SizedBox(
                                           height: 10,
                                         ),
                                         Text("Claim Ratio - "+
-                                            reg.insurances[index].claimSuccessPercentage,
+                                          policy.claimSuccessPercentage,
                                           style: const TextStyle(fontSize: 17, color: Colors.grey),
                                         ),
                                         const SizedBox(
                                           height: 10,
                                         ),
                                         Text("Avg Monthly cost - "+
-                                            reg.insurances[index].monthlyCost,
+                                          policy.monthlyCost,
                                           style: const TextStyle(
                                               fontSize: 10,
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold),
                                         ),
                                         Text("Ploicy Type - "+
-                                            reg.insurances[index].type,
+                                          policy.type,
                                           style: const TextStyle(fontSize: 17, color: Colors.grey),
                                         ),
                                       ],
@@ -136,11 +139,14 @@ setState(() {
                           ),
                         );
                       },
-                    ),
-                  ]  ),
+  ),
+        ]  ),
             ),
           )
       ),
     );
   }
 }
+
+
+

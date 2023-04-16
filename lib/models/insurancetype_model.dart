@@ -13,5 +13,5 @@ class TypeModel with ChangeNotifier {
   String tid;
   String title;
   String description;
-  String profile_pic_filename;
+  List<dynamic> profile_pic_filename;
 }

@@ -1,7 +1,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:insurego_gfg/provider/user_provider.dart';
 import 'package:insurego_gfg/screens/Claim.dart';
 import 'package:insurego_gfg/screens/Policy.dart';
 import 'package:insurego_gfg/screens/homescreen.dart';
@@ -65,7 +64,7 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
       statusBarIconBrightness: Brightness.dark,
       //set brightness for icons, like dark background light icons
     ));
-    List<String> headers = ["Home","Policy","Claim"];
+    List<String> headers = ["Home","Buy Policy","Your Policies"];
 
     List<Widget> _widgetOptions = <Widget>[
       HomePage(),

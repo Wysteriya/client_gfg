@@ -1,6 +1,11 @@
+
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/register_provider.dart';
 
 class ClaimRegistration extends StatefulWidget {
   const ClaimRegistration({Key? key}) : super(key: key);
@@ -11,6 +16,15 @@ class ClaimRegistration extends StatefulWidget {
 
 class _ClaimRegistrationState extends State<ClaimRegistration>
     with SingleTickerProviderStateMixin {
+  bool value = false;
+  bool smoker = false;
+  bool alcholoh = false;
+  bool tobacoo = false;
+
+
+
+
+
   static var _isInit = true;
   final ImagePicker _picker = ImagePicker();
 
@@ -37,6 +51,12 @@ class _ClaimRegistrationState extends State<ClaimRegistration>
 
   @override
   Widget build(BuildContext context) {
+
+
+
+
+    var reg = Provider.of<RegisterProvider>(context);
+
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
@@ -106,15 +126,27 @@ class _ClaimRegistrationState extends State<ClaimRegistration>
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
+                      padding: const EdgeInsets.only(left: 10, top: 10),
+                      alignment: Alignment.topLeft,
+                      child: GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          )),
+                    ),
+                    Container(
                       padding: const EdgeInsets.only(right: 20, left: 20),
                       height: 60,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text(
-                            "Edit Profile",
+                            "Claim ",
                             style: TextStyle(
-                              color: Color(0xff1f1d1d),
+                              color: Colors.white,
                               fontSize: 20,
                               fontFamily: "Lato",
                               fontWeight: FontWeight.w600,
@@ -132,9 +164,36 @@ class _ClaimRegistrationState extends State<ClaimRegistration>
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: Colors.black),
                                   onPressed: () {
-                                    //data.editProfile(context);
+                                    void _showDialog(BuildContext context) {
+                                      showDialog(
+                                        context: context,
+                                        builder: (ctx) => AlertDialog(
+                                          title: const Text('Insurego!'),
+                                          content: Text("Claim Succesfully filed"),
+                                          actions: <Widget>[
+                                            ElevatedButton(
+                                              style: ButtonStyle(
+                                                fixedSize: MaterialStateProperty.all(const Size.fromHeight(40.0)),
+                                                backgroundColor: MaterialStateProperty.all(Colors.blue),
+                                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(5.0))),
+                                              ),
+                                              child: const Text('Okay'),
+                                              onPressed: () {
+
+
+                                                Navigator.of(ctx).pop();
+
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    }
                                     Navigator.pop(context);
-                                    //   Provider.of<Profile>(context, listen: false).getProfile();
+                                    _showDialog(context);
+
                                   },
                                   child: const Text(
                                     "Confirm",
@@ -156,6 +215,17 @@ class _ClaimRegistrationState extends State<ClaimRegistration>
                     const SizedBox(
                       height: 20,
                     ),
+                    Container(
+                      alignment: Alignment.center,
+                      child: const Text(
+                        "Upload Documents",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Container(
                           height: 100,
@@ -182,7 +252,7 @@ class _ClaimRegistrationState extends State<ClaimRegistration>
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image.asset(
-                                        'assets/My Picture.png',
+                                        'assets/upload_icon.png',
                                         height: 100,
                                       ),
                                     ],
@@ -192,56 +262,520 @@ class _ClaimRegistrationState extends State<ClaimRegistration>
                             ],
                           )),
                     ]),
+                    Row(
+                      children: <Widget>[
+                        const SizedBox(
+                          width: 10,
+                        ), //SizedBox
+                        const Text(
+                          'Alcoholic',
+                          style: TextStyle(fontSize: 14.0,color: Colors.yellow),
+                        ), //Text
+                        const SizedBox(width: 5), //SizedBox
+                        Checkbox(
+                          value: this.alcholoh,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              this.alcholoh = value!;
+                            });
+                          },
+                        ),
+
+                        const SizedBox(
+                          width: 10,
+                        ), //SizedBox
+                        const Text(
+                          'Smoker',
+                          style: TextStyle(fontSize: 14.0,color: Colors.yellow),
+                        ), //Text
+                        const SizedBox(width: 5), //SizedBox
+                        Checkbox(
+                          value: this.smoker,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              this.smoker = value!;
+                            });
+                          },
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Text(
+                          'Tobacoo',
+                          style: TextStyle(fontSize: 14.0,color: Colors.yellow),
+                        ), //Text
+                        const SizedBox(width: 5), //SizedBox
+                        Checkbox(
+                          checkColor: Colors.white,
+
+                          value: this.tobacoo,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              this.tobacoo = value!;
+                            });
+                          },
+                        ),
+
+                        const SizedBox(
+                          width: 10,
+                        ),
+
+
+
+
+                      ], //<Widget>[]
+                    ),
+
                     Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'New Name',
-                              style: TextStyle(
-                                color: Color(0xff1f1d1d),
-                                fontSize: 14,
-                                fontFamily: "Lato",
-                                fontWeight: FontWeight.w500,
-                              ),
+                      padding:
+                      const EdgeInsets.only(left: 20, right: 20, top: 20),
+                      child: Container(
+                        width: width,
+                        height: 50,
+                        child: TextFormField(
+                          //  controller: userInput,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(248, 173, 13, 1),
+                            fontWeight: FontWeight.w600,
+                          ),
+
+                          decoration: InputDecoration(
+                            focusColor: const Color.fromRGBO(248, 173, 13, 1),
+                            //add prefix icon
+
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
-                            const SizedBox(
-                              height: 10,
+
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(248, 173, 13, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
                             ),
-                            Container(
-                              width: width,
-                              padding: const EdgeInsets.only(
-                                left: 10,
-                              ),
-                              child: TextFormField(
-                                //controller: data.nameController,
-                                decoration: const InputDecoration(
-                                  fillColor: Color(0xfffffde7),
-                                  border: InputBorder.none,
-                                  filled: true,
-                                ),
-                              ),
+                            fillColor: const Color.fromRGBO(248, 173, 13, 1),
+
+                            hintText: "Name",
+
+                            //make hint text
+                            hintStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
                             ),
-                            const Opacity(
-                              opacity: 0.80,
-                              child: Text(
-                                "New User Type",
-                                style: TextStyle(
-                                  color: Color(0xff1f1d1d),
-                                  fontSize: 12,
-                                ),
-                              ),
+
+                            //create lable
+                            labelText: 'Full Name As per ID proof',
+                            //lable style
+                            labelStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
                             ),
-                            const SizedBox(
-                              height: 10,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: reg.nameError,
+                      child: Column(
+                        children: const [
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "*Name is Invalid.",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
                             ),
-                          ],
-                        )),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Container(
+                        width: width,
+                        height: 50,
+                        child: TextFormField(
+                          //  controller: userInput,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(248, 173, 13, 1),
+                            fontWeight: FontWeight.w600,
+                          ),
+
+                          decoration: InputDecoration(
+                            focusColor: const Color.fromRGBO(248, 173, 13, 1),
+                            //add prefix icon
+
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(248, 173, 13, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            fillColor: const Color.fromRGBO(248, 173, 13, 1),
+
+                            hintText: "Email",
+
+                            //make hint text
+                            hintStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+
+                            //create lable
+                            labelText: 'Email',
+                            //lable style
+                            labelStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: reg.emailError,
+                      child: Column(
+                        children: const [
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "*Email is Invalid.",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Container(
+                        width: width,
+                        height: 50,
+                        child: TextFormField(
+                          //  controller: userInput,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(248, 173, 13, 1),
+                            fontWeight: FontWeight.w600,
+                          ),
+
+                          decoration: InputDecoration(
+                            focusColor: const Color.fromRGBO(248, 173, 13, 1),
+                            //add prefix icon
+
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(248, 173, 13, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            fillColor: const Color.fromRGBO(248, 173, 13, 1),
+
+                            hintText: "Occupation",
+
+                            //make hint text
+                            hintStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+
+                            //create lable
+                            labelText: 'Occupation',
+                            //lable style
+                            labelStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: reg.passwordError,
+                      child: Column(
+                        children: const [
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "*Password is Invalid.",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 12,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+
+
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Container(
+                        width: width,
+                        height: 50,
+                        child: TextFormField(
+                          //  controller: userInput,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(248, 173, 13, 1),
+                            fontWeight: FontWeight.w600,
+                          ),
+
+                          decoration: InputDecoration(
+                            focusColor: const Color.fromRGBO(248, 173, 13, 1),
+                            //add prefix icon
+
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(248, 173, 13, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            fillColor: const Color.fromRGBO(248, 173, 13, 1),
+
+                            hintText: "Annual Income",
+
+                            //make hint text
+                            hintStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+
+                            //create lable
+                            labelText: 'Annual Income',
+                            //lable style
+                            labelStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Container(
+                        width: width,
+                        height: 50,
+                        child: TextFormField(
+                          //  controller: userInput,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(248, 173, 13, 1),
+                            fontWeight: FontWeight.w600,
+                          ),
+
+                          decoration: InputDecoration(
+                            focusColor: const Color.fromRGBO(248, 173, 13, 1),
+                            //add prefix icon
+
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(248, 173, 13, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            fillColor: const Color.fromRGBO(248, 173, 13, 1),
+
+                            hintText: "Education",
+
+                            //make hint text
+                            hintStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+
+                            //create lable
+                            labelText: 'Education',
+                            //lable style
+                            labelStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Container(
+                        width: width,
+                        height: 50,
+                        child: TextFormField(
+                          //  controller: userInput,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(248, 173, 13, 1),
+                            fontWeight: FontWeight.w600,
+                          ),
+
+                          decoration: InputDecoration(
+                            focusColor: const Color.fromRGBO(248, 173, 13, 1),
+                            //add prefix icon
+
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(248, 173, 13, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            fillColor: const Color.fromRGBO(248, 173, 13, 1),
+
+                            hintText: "Aadhar No",
+
+                            //make hint text
+                            hintStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+
+                            //create lable
+                            labelText: 'Aadhar No',
+                            //lable style
+                            labelStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Container(
+                        width: width,
+                        height: 50,
+                        child: TextFormField(
+                          //  controller: userInput,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Color.fromRGBO(248, 173, 13, 1),
+                            fontWeight: FontWeight.w600,
+                          ),
+
+                          decoration: InputDecoration(
+                            focusColor: const Color.fromRGBO(248, 173, 13, 1),
+                            //add prefix icon
+
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  color: Color.fromRGBO(248, 173, 13, 1),
+                                  width: 1.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            fillColor: const Color.fromRGBO(248, 173, 13, 1),
+
+                            hintText: "Pan No",
+
+                            //make hint text
+                            hintStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+
+                            //create lable
+                            labelText: 'Pan No',
+                            //lable style
+                            labelStyle: const TextStyle(
+                              color: Color.fromRGBO(248, 173, 13, 1),
+                              fontSize: 16,
+                              fontFamily: "lato",
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+
+
+                    const SizedBox(
+                      height: 20,
+                    ),
                   ]),
             ),
           )),
     );
   }
 }
+//userID
+

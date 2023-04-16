@@ -2,11 +2,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:insurego_gfg/provider/insurancetype_provider.dart';
-import 'package:insurego_gfg/provider/user_provider.dart';
 import 'package:insurego_gfg/screens/ClaimRegistration.dart';
 import 'package:insurego_gfg/screens/Track_Claim.dart';
+import 'package:insurego_gfg/screens/all_policies.dart';
 import 'package:insurego_gfg/screens/policy_buy_registration.dart';
-import 'package:insurego_gfg/screens/policy_list_type.dart';
 import 'package:insurego_gfg/screens/top_polices.dart';
 import 'package:provider/provider.dart';
 
@@ -44,7 +43,6 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    var data = Provider.of<UserProvider>(context);
     var ele = Provider.of<ITypeProvider>(context);
 
     double height = MediaQuery.of(context).size.height;
@@ -88,137 +86,137 @@ class _HomePageState extends State<HomePage>
                   const SizedBox(
                     height: 20,
                   ),
-                  ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    controller: ScrollController(),
-                    itemCount: data.UserItems.length,
-                    itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-                      // builder: (c) => products[i],
-                      value: data.UserItems[i],
-                      child: Container(
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          width: width,
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
-                            ),
-                            padding: const EdgeInsets.only(
-                                left: 10, bottom: 10, right: 10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                const Text(
-                                  "Basic Information.",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontFamily: "lato",
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  height: 30,
-                                ),
-                                Container(
-                                  width: width,
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: const BoxDecoration(
-                                    color: Color(0x99dda107),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        child: Text(
-                                          "Matriculation No.${data.UserItems[i].emailAddress}",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontFamily: "lato",
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "Full Name         ${data.UserItems[i].name}",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontFamily: "lato",
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "Faculty         ${data.UserItems[i].stream}",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontFamily: "lato",
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "Major         ${data.UserItems[i].branch}",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontFamily: "lato",
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Container(
-                                        child: Text(
-                                          "Current Semester         ${data.UserItems[i].semester}",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontFamily: "lato",
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          )),
-                    ),
-                  ),
+                  // ListView.builder(
+                  //   scrollDirection: Axis.vertical,
+                  //   shrinkWrap: true,
+                  //   controller: ScrollController(),
+                  //   itemCount: data.UserItems.length,
+                  //   itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+                  //     // builder: (c) => products[i],
+                  //     value: data.UserItems[i],
+                  //     child: Container(
+                  //         decoration: const BoxDecoration(
+                  //           color: Colors.white,
+                  //           borderRadius: BorderRadius.all(Radius.circular(20)),
+                  //         ),
+                  //         width: width,
+                  //         child: Container(
+                  //           decoration: const BoxDecoration(
+                  //             borderRadius:
+                  //                 BorderRadius.all(Radius.circular(20)),
+                  //           ),
+                  //           padding: const EdgeInsets.only(
+                  //               left: 10, bottom: 10, right: 10),
+                  //           child: Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             mainAxisAlignment: MainAxisAlignment.start,
+                  //             children: [
+                  //               const SizedBox(
+                  //                 height: 20,
+                  //               ),
+                  //               const Text(
+                  //                 "Basic Information.",
+                  //                 style: TextStyle(
+                  //                   color: Colors.black,
+                  //                   fontSize: 18,
+                  //                   fontFamily: "lato",
+                  //                   fontWeight: FontWeight.w700,
+                  //                 ),
+                  //               ),
+                  //               const SizedBox(
+                  //                 height: 30,
+                  //               ),
+                  //               Container(
+                  //                 width: width,
+                  //                 padding: const EdgeInsets.all(10),
+                  //                 decoration: const BoxDecoration(
+                  //                   color: Color(0x99dda107),
+                  //                   borderRadius:
+                  //                       BorderRadius.all(Radius.circular(20)),
+                  //                 ),
+                  //                 child: Column(
+                  //                   crossAxisAlignment:
+                  //                       CrossAxisAlignment.start,
+                  //                   mainAxisAlignment: MainAxisAlignment.start,
+                  //                   children: [
+                  //                     Container(
+                  //                       child: Text(
+                  //                         "Matriculation No.${data.UserItems[i].emailAddress}",
+                  //                         style: TextStyle(
+                  //                           color: Colors.black,
+                  //                           fontSize: 16,
+                  //                           fontFamily: "lato",
+                  //                           fontWeight: FontWeight.w500,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     const SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                     Container(
+                  //                       child: Text(
+                  //                         "Full Name         ${data.UserItems[i].name}",
+                  //                         style: TextStyle(
+                  //                           color: Colors.black,
+                  //                           fontSize: 16,
+                  //                           fontFamily: "lato",
+                  //                           fontWeight: FontWeight.w500,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     const SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                     Container(
+                  //                       child: Text(
+                  //                         "Faculty         ${data.UserItems[i].stream}",
+                  //                         style: TextStyle(
+                  //                           color: Colors.black,
+                  //                           fontSize: 16,
+                  //                           fontFamily: "lato",
+                  //                           fontWeight: FontWeight.w500,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     const SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                     Container(
+                  //                       child: Text(
+                  //                         "Major         ${data.UserItems[i].branch}",
+                  //                         style: TextStyle(
+                  //                           color: Colors.black,
+                  //                           fontSize: 16,
+                  //                           fontFamily: "lato",
+                  //                           fontWeight: FontWeight.w500,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     const SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                     Container(
+                  //                       child: Text(
+                  //                         "Current Semester         ${data.UserItems[i].semester}",
+                  //                         style: TextStyle(
+                  //                           color: Colors.black,
+                  //                           fontSize: 16,
+                  //                           fontFamily: "lato",
+                  //                           fontWeight: FontWeight.w500,
+                  //                         ),
+                  //                       ),
+                  //                     ),
+                  //                     const SizedBox(
+                  //                       height: 5,
+                  //                     ),
+                  //                   ],
+                  //                 ),
+                  //               )
+                  //             ],
+                  //           ),
+                  //         )),
+                  //   ),
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -299,7 +297,7 @@ class _HomePageState extends State<HomePage>
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Attendance()));
+                                  builder: (context) => ClaimRegistration()));
                         },
                         child: Container(
                           padding: EdgeInsets.all(5),
@@ -377,8 +375,7 @@ class _HomePageState extends State<HomePage>
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Marks()));
+
                         },
                         child: Container(
                           padding: EdgeInsets.all(5),
@@ -667,9 +664,7 @@ class _HomePageState extends State<HomePage>
                     ),
 
                   ),
-                  ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>ClaimRegistration()));}, child: Text("Claim Registration")),
-                  ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>Poilicies()));}, child: Text("List of policies")),
-                  ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>PolicyRegistration()));}, child: Text("Policy registration")),
+
 
                 ],
               ),

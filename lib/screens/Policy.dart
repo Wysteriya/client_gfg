@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/services.dart';
 import 'package:insurego_gfg/provider/insurancetype_provider.dart';
+import 'package:insurego_gfg/screens/all_policies.dart';
 
 import 'package:provider/provider.dart';
 import 'dart:io';
@@ -64,6 +65,8 @@ class _PolicyState extends State<Policy> with SingleTickerProviderStateMixin{
              const SizedBox(
                 height: 20,
               ),
+              Text("Select Policy Type",style: TextStyle(fontSize: 20),),
+              SizedBox(height: 10,),
 
 
               GridView.builder(
@@ -74,17 +77,9 @@ class _PolicyState extends State<Policy> with SingleTickerProviderStateMixin{
                 itemBuilder: (BuildContext context, int i) =>
                     GestureDetector(
                       onTap: () {
-                        // if (data.studentItems[i].status == "2")
-                        //   auth.updatedsid(
-                        //     context,
-                        //     data.studentItems[i].image,
-                        //     data.studentItems[i].id,
-                        //     data.studentItems[i].name,
-                        //     data.studentItems[i].classId,
-                        //     data.studentItems[i].sectionId,
-                        //     data.studentItems[i].batch,
-                        //     data.studentItems[i].dob,
-                        //
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>InsurancePolicyListScreen()));
+
+
                       },
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
@@ -101,7 +96,7 @@ class _PolicyState extends State<Policy> with SingleTickerProviderStateMixin{
                                   backgroundColor: Colors.white,
                                   radius: width * 0.15,
                                   backgroundImage: NetworkImage(
-                                      data.TypeItems[i].profile_pic_filename)),
+                                      data.TypeItems[i].profile_pic_filename[0])),
                               Text(
                                 data.TypeItems[i].title,
                                 style: const TextStyle(

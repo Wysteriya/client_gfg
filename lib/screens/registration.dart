@@ -1,13 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:insurego_gfg/models/city_model.dart';
-import 'package:insurego_gfg/models/institute_model.dart';
 import 'package:insurego_gfg/provider/register_provider.dart';
 import 'package:insurego_gfg/utils/colorConstants.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -28,32 +28,12 @@ class _RegistrationState extends State<Registration>
   }
 
   List<String> gender = ["Select Gender", "Male", "Female", "Others"];
-  List<String> semester = [
-    "Select Semester",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8"
-  ];
-  List<String> course = [
-    "Select Course",
-    "ISE",
-    "ME",
-    "CSE",
-    "CSE-CY",
-    "AI&ML"
-  ];
-  List<String> stream = ["Select Stream", "BE", "BSC", "MCA", "MBA"];
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_isInit) {
-      Provider.of<RegisterProvider>(context, listen: false).getCity();
+     // Provider.of<RegisterProvider>(context, listen: false).getCity();
       setState(() {
         _isInit = false;
       });
@@ -541,8 +521,11 @@ class _RegistrationState extends State<Registration>
                     padding: const EdgeInsets.only(left: 20, right: 20),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: Colors.black),
-                      onPressed: () {
-                        reg.register(context);
+                      onPressed: () async{
+                       reg.register(context);
+
+
+
                       },
                       child: Container(
                         width: width,
@@ -567,3 +550,5 @@ class _RegistrationState extends State<Registration>
     );
   }
 }
+
+

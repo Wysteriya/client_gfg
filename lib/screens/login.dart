@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:insurego_gfg/provider/auth_provider.dart';
 import 'package:insurego_gfg/provider/insurancetype_provider.dart';
 import 'package:insurego_gfg/provider/register_provider.dart';
-import 'package:insurego_gfg/provider/user_provider.dart';
 import 'package:insurego_gfg/screens/main_class.dart';
 import 'package:provider/provider.dart';
 class Login extends StatefulWidget {
